@@ -50,6 +50,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = __importDefault(require("mongoose"));
+// customer schema
 var CustomerSchema = new mongoose_1.default.Schema({
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
@@ -65,6 +66,7 @@ var Customer = /** @class */ (function () {
     function Customer() {
         this.model = mongoose_1.default.model('customer', CustomerSchema);
     }
+    // create customer
     Customer.prototype.create = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var result, error_1;
@@ -85,6 +87,7 @@ var Customer = /** @class */ (function () {
             });
         });
     };
+    // create many
     Customer.prototype.createMany = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var result, error_2;
@@ -105,6 +108,7 @@ var Customer = /** @class */ (function () {
             });
         });
     };
+    // delete many
     Customer.prototype.deleteMany = function () {
         return __awaiter(this, void 0, void 0, function () {
             var error_3;
@@ -124,6 +128,7 @@ var Customer = /** @class */ (function () {
             });
         });
     };
+    // get all customer
     Customer.prototype.getAll = function (limit) {
         return __awaiter(this, void 0, void 0, function () {
             var result, err_1;
@@ -150,6 +155,7 @@ var Customer = /** @class */ (function () {
             });
         });
     };
+    // get customer by name
     Customer.prototype.getByName = function (name) {
         return __awaiter(this, void 0, void 0, function () {
             var result, err_2;
@@ -169,6 +175,7 @@ var Customer = /** @class */ (function () {
             });
         });
     };
+    //get customer by type
     Customer.prototype.getByType = function (type) {
         return __awaiter(this, void 0, void 0, function () {
             var result, err_3;
@@ -194,6 +201,7 @@ var Customer = /** @class */ (function () {
             });
         });
     };
+    // get customer by state
     Customer.prototype.getByState = function (state) {
         return __awaiter(this, void 0, void 0, function () {
             var customer, err_4;
@@ -221,6 +229,7 @@ var Customer = /** @class */ (function () {
             });
         });
     };
+    // get customer by age
     Customer.prototype.getByAge = function (_age) {
         return __awaiter(this, void 0, void 0, function () {
             var customer, error_4;

@@ -54,6 +54,7 @@ app.use(function (err, req, res, next) {
         message: err.message
     });
 });
+// Create customer
 app.post("/customers", function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
     var customers, err_1;
     return __generator(this, function (_a) {
@@ -79,6 +80,7 @@ app.post("/customers", function (req, res, next) { return __awaiter(_this, void 
         }
     });
 }); });
+// get all customer with limit 
 app.get("/customers", function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
     var limit, customers, err_2;
     return __generator(this, function (_a) {
@@ -101,6 +103,7 @@ app.get("/customers", function (req, res, next) { return __awaiter(_this, void 0
         }
     });
 }); });
+// Search customer
 app.get('/customers/search', function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
     var customers, name, err_3;
     return __generator(this, function (_a) {
@@ -128,6 +131,7 @@ app.get('/customers/search', function (req, res, next) { return __awaiter(_this,
         }
     });
 }); });
+//Get customer by type
 app.get('/customers/type/:type', function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
     var customers, type, err_4;
     return __generator(this, function (_a) {
@@ -150,6 +154,7 @@ app.get('/customers/type/:type', function (req, res, next) { return __awaiter(_t
         }
     });
 }); });
+// Get customer by age
 app.get("/customers/age/:age", function (req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var customers, error_1;
@@ -169,6 +174,7 @@ app.get("/customers/age/:age", function (req, res, next) {
         });
     });
 });
+// Get customer by state
 app.get("/customers/state/:state", function (req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var customers, error_2;

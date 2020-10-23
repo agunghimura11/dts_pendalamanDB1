@@ -14,6 +14,7 @@ export type CustomerType = {
 
 export type CustomerDocument = mongoose.Document & CustomerType
 
+// custome type
 type Keyword = {
     first_name: {
         $regex: string,
@@ -21,6 +22,7 @@ type Keyword = {
     }
 } | {}
 
+// customer schema
 const CustomerSchema = new mongoose.Schema({
     first_name: {type:String, required: true},
       last_name: {type:String, required: true},
@@ -40,6 +42,7 @@ export class Customer {
         this.model = mongoose.model('customer', CustomerSchema)
     }
 
+    // create customer
     async create(data: CustomerType) {
         let result: CustomerType
         try {
@@ -51,6 +54,7 @@ export class Customer {
         return result
     }
 
+    // create many
     async createMany(data: CustomerType[]) {
         let result: CustomerType[]
         try{
@@ -63,6 +67,7 @@ export class Customer {
         return result
     }
 
+    // delete many
     async deleteMany(){
         try {
             await this.model.deleteMany({})
@@ -71,6 +76,7 @@ export class Customer {
         }
     }
 
+    // get all customer
     async getAll(limit: number){
         let result: CustomerType[]
         try{
@@ -89,6 +95,7 @@ export class Customer {
         return result
     }
 
+    // get customer by name
     async getByName(name: Keyword){
         let result: CustomerType[]
         try{
@@ -101,7 +108,7 @@ export class Customer {
 
         return result
     }
-
+    //get customer by type
     async getByType(type:string){
         let result : CustomerType[]
         try{
@@ -118,7 +125,7 @@ export class Customer {
 
         return result
     }
-
+    // get customer by state
     async getByState(state: string){
         let customer : CustomerType[]
         try{
@@ -137,7 +144,7 @@ export class Customer {
 
         return customer
     }
-
+    // get customer by age
     async getByAge(_age: number) {
         let customer : CustomerType[] | null
         try{

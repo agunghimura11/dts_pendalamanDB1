@@ -4,8 +4,6 @@ dotenv.config()
 
 import express from 'express'
 
-import mongoose from 'mongoose'
-
 import connectDB from './connect'
 import { Customer, CustomerType } from './mongoose'
 
@@ -23,6 +21,7 @@ app.use((err: Error, req: express.Request, res:express.Response, next:express.Ne
  }) 
 })
 
+// Create customer
 app.post("/customers", async (req,res,next) =>{
   let customers: CustomerType | CustomerType[]
   try{
@@ -38,7 +37,7 @@ app.post("/customers", async (req,res,next) =>{
   res.json(customers) 
 })
 
-
+// get all customer with limit 
 app.get("/customers", async (req,res,next) =>{
   const limit = Number(req.body.limit) || 10
   let customers: CustomerType[]
@@ -51,6 +50,7 @@ app.get("/customers", async (req,res,next) =>{
   res.json(customers) 
 })
 
+// Search customer
 app.get('/customers/search', async (req,res,next) => {
   let customers: CustomerType[]
   const name = req.query.name ? {
@@ -69,6 +69,7 @@ app.get('/customers/search', async (req,res,next) => {
   res.json(customers)
 })
 
+//Get customer by type
 app.get('/customers/type/:type', async (req,res,next) => {
   let customers: CustomerType[]
   const type = req.params.type as string
@@ -82,6 +83,7 @@ app.get('/customers/type/:type', async (req,res,next) => {
   res.json(customers)
 })
 
+// Get customer by age
 app.get("/customers/age/:age", async function(req,res,next) {
   let customers: CustomerType[]
   try{
@@ -93,6 +95,7 @@ app.get("/customers/age/:age", async function(req,res,next) {
   return res.send(customers)
 })
 
+// Get customer by state
 app.get("/customers/state/:state", async function(req,res,next){
   let customers: CustomerType[]
   try{
