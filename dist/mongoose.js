@@ -194,6 +194,33 @@ var Customer = /** @class */ (function () {
             });
         });
     };
+    Customer.prototype.getByState = function (state) {
+        return __awaiter(this, void 0, void 0, function () {
+            var customer, err_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.model.aggregate([
+                                {
+                                    $match: {
+                                        state: {
+                                            $eq: state
+                                        }
+                                    }
+                                }
+                            ]).exec()];
+                    case 1:
+                        customer = _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        err_4 = _a.sent();
+                        throw err_4;
+                    case 3: return [2 /*return*/, customer];
+                }
+            });
+        });
+    };
     Customer.prototype.getByAge = function (_age) {
         return __awaiter(this, void 0, void 0, function () {
             var customer, error_4;

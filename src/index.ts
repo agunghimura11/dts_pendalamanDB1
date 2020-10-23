@@ -93,6 +93,17 @@ app.get("/customers/age/:age", async function(req,res,next) {
   return res.send(customers)
 })
 
+app.get("/customers/state/:state", async function(req,res,next){
+  let customers: CustomerType[]
+  try{
+    customers = await customerModel.getByState(req.params.state)
+  }catch(error){
+    return next(error)
+  }
+
+  return res.send(customers)
+})
+
 app.listen(process.env.PORT || 8000, () => {
   console.log(`App listen on port ${ process.env.PORT || 8000 }`)
 })

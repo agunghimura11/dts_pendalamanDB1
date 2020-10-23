@@ -119,6 +119,25 @@ export class Customer {
         return result
     }
 
+    async getByState(state: string){
+        let customer : CustomerType[]
+        try{
+            customer = await this.model.aggregate([
+                {
+                    $match : {
+                        state : {
+                            $eq : state
+                        }
+                    }
+                }
+            ]).exec()
+        }catch(err){
+            throw err
+        }
+
+        return customer
+    }
+
     async getByAge(_age: number) {
         let customer : CustomerType[] | null
         try{

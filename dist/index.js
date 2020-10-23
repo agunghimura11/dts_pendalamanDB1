@@ -169,6 +169,25 @@ app.get("/customers/age/:age", function (req, res, next) {
         });
     });
 });
+app.get("/customers/state/:state", function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var customers, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, customerModel.getByState(req.params.state)];
+                case 1:
+                    customers = _a.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    return [2 /*return*/, next(error_2)];
+                case 3: return [2 /*return*/, res.send(customers)];
+            }
+        });
+    });
+});
 app.listen(process.env.PORT || 8000, function () {
     console.log("App listen on port " + (process.env.PORT || 8000));
 });
