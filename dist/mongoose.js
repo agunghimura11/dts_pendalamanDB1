@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -69,7 +80,7 @@ var Customer = /** @class */ (function () {
                     case 2:
                         error_1 = _a.sent();
                         throw error_1;
-                    case 3: return [2 /*return*/];
+                    case 3: return [2 /*return*/, result];
                 }
             });
         });
@@ -89,7 +100,7 @@ var Customer = /** @class */ (function () {
                     case 2:
                         error_2 = _a.sent();
                         throw error_2;
-                    case 3: return [2 /*return*/];
+                    case 3: return [2 /*return*/, result];
                 }
             });
         });
@@ -109,6 +120,95 @@ var Customer = /** @class */ (function () {
                         error_3 = _a.sent();
                         throw error_3;
                     case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Customer.prototype.getAll = function (limit) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.model.aggregate([
+                                {
+                                    "$addFields": {
+                                        "fullname": { "$concat": ["firstname", " ", "lastname"] }
+                                    }
+                                }
+                            ]).limit(limit).exec()];
+                    case 1:
+                        //result = await this.model.find({}).limit(limit)
+                        result = _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        err_1 = _a.sent();
+                        throw err_1;
+                    case 3: return [2 /*return*/, result];
+                }
+            });
+        });
+    };
+    Customer.prototype.getByName = function (name) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result, err_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.model.find(__assign({}, name))];
+                    case 1:
+                        result = _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        err_2 = _a.sent();
+                        throw err_2;
+                    case 3: return [2 /*return*/, result];
+                }
+            });
+        });
+    };
+    Customer.prototype.getByType = function (type) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result, err_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.model.aggregate([{
+                                    $match: {
+                                        customer_type: {
+                                            $eq: type
+                                        }
+                                    }
+                                }]).exec()];
+                    case 1:
+                        result = _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        err_3 = _a.sent();
+                        throw err_3;
+                    case 3: return [2 /*return*/, result];
+                }
+            });
+        });
+    };
+    Customer.prototype.getByAge = function (_age) {
+        return __awaiter(this, void 0, void 0, function () {
+            var customer, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.model.find({ age: { $lt: _age } })];
+                    case 1:
+                        customer = _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_4 = _a.sent();
+                        throw error_4;
+                    case 3: return [2 /*return*/, customer];
                 }
             });
         });

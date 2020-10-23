@@ -14,6 +14,13 @@ export type CustomerType = {
 
 export type CustomerDocument = mongoose.Document & CustomerType
 
+type Keyword = {
+    first_name: {
+        $regex: string,
+        $options: string
+    }
+} | {}
+
 const CustomerSchema = new mongoose.Schema({
     first_name: {type:String, required: true},
       last_name: {type:String, required: true},
@@ -34,21 +41,26 @@ export class Customer {
     }
 
     async create(data: CustomerType) {
+        let result: CustomerType
         try {
-            const result = await this.model.create(data)
+            result = await this.model.create(data)
             console.log(result)
         } catch(error) {
             throw error
         }
+        return result
     }
 
     async createMany(data: CustomerType[]) {
+        let result: CustomerType[]
         try{
-            const result = await this.model.insertMany(data)
+            result = await this.model.insertMany(data)
             console.log(result)
         }catch(error){
             throw error
         }
+
+        return result
     }
 
     async deleteMany(){
@@ -57,5 +69,64 @@ export class Customer {
         } catch(error){
             throw error
         }
+    }
+
+    async getAll(limit: number){
+        let result: CustomerType[]
+        try{
+            //result = await this.model.find({}).limit(limit)
+            result = await this.model.aggregate([
+                {
+                    "$addFields": {
+                        "fullname": { "$concat": ["firstname", " ", "lastname"] }
+                    }
+                }
+            ]).limit(limit).exec()
+        }catch(err){
+            throw err
+        }
+
+        return result
+    }
+
+    async getByName(name: Keyword){
+        let result: CustomerType[]
+        try{
+            result = await this.model.find({
+                ...name
+            })
+        }catch(err){
+            throw err
+        }
+
+        return result
+    }
+
+    async getByType(type:string){
+        let result : CustomerType[]
+        try{
+            result = await this.model.aggregate([{
+                $match : {
+                    customer_type: {
+                        $eq: type
+                    }
+                }
+            }]).exec()
+        }catch(err){
+            throw err
+        }
+
+        return result
+    }
+
+    async getByAge(_age: number) {
+        let customer : CustomerType[] | null
+        try{
+            customer = await this.model.find({age: { $lt: _age }})
+        }catch(error){
+            throw error
+        }
+
+        return customer
     }
 }
