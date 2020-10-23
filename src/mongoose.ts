@@ -12,6 +12,8 @@ export type CustomerType = {
     phone_number: string
 }
 
+export type CustomerDocument = mongoose.Document & CustomerType
+
 const CustomerSchema = new mongoose.Schema({
     first_name: {type:String, required: true},
       last_name: {type:String, required: true},
@@ -22,4 +24,38 @@ const CustomerSchema = new mongoose.Schema({
       state: {type:String, required: true},
       zip_code: {type:String, required: true},
       phone_number: {type: String, required: true},
-  })
+})
+
+export class Customer {
+    private model: mongoose.Model<CustomerDocument>
+
+    constructor() {
+        this.model = mongoose.model('customer', CustomerSchema)
+    }
+
+    async create(data: CustomerType) {
+        try {
+            const result = await this.model.create(data)
+            console.log(result)
+        } catch(error) {
+            throw error
+        }
+    }
+
+    async createMany(data: CustomerType[]) {
+        try{
+            const result = await this.model.insertMany(data)
+            console.log(result)
+        }catch(error){
+            throw error
+        }
+    }
+
+    async deleteMany(){
+        try {
+            await this.model.deleteMany({})
+        } catch(error){
+            throw error
+        }
+    }
+}
